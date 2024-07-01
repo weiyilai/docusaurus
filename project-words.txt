@@ -123,6 +123,7 @@ héllô
 hideable
 Hideable
 hola
+Hola
 Hostman
 hoverable
 Husain
@@ -283,6 +284,8 @@ rachelnabors
 Ramón
 reactjs
 rearchitecture
+recma
+Recma
 recrawl
 redirections
 Redoc
@@ -320,7 +323,6 @@ showinfo
 Sida
 Simen
 slorber
-sluggified
 sluggifies
 sluggify
 solana
@@ -353,6 +355,7 @@ Supabase
 svgr
 SVGR
 swizzlable
+Tagkey
 Teik
 templating
 Thanos

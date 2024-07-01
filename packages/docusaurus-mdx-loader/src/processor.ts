@@ -10,6 +10,7 @@ import contentTitle from './remark/contentTitle';
 import toc from './remark/toc';
 import transformImage from './remark/transformImage';
 import transformLinks from './remark/transformLinks';
+import resolveMarkdownLinks from './remark/resolveMarkdownLinks';
 import details from './remark/details';
 import head from './remark/head';
 import mermaid from './remark/mermaid';
@@ -53,6 +54,7 @@ export type MDXOptions = {
   admonitions: boolean | Partial<AdmonitionOptions>;
   remarkPlugins: MDXPlugin[];
   rehypePlugins: MDXPlugin[];
+  recmaPlugins: MDXPlugin[];
   beforeDefaultRemarkPlugins: MDXPlugin[];
   beforeDefaultRehypePlugins: MDXPlugin[];
 };
@@ -120,6 +122,13 @@ async function createProcessorFactory() {
           siteDir: options.siteDir,
         },
       ],
+      // TODO merge this with transformLinks?
+      options.resolveMarkdownLink
+        ? [
+            resolveMarkdownLinks,
+            {resolveMarkdownLink: options.resolveMarkdownLink},
+          ]
+        : undefined,
       [
         transformLinks,
         {
@@ -141,6 +150,10 @@ async function createProcessorFactory() {
       ...(options.beforeDefaultRehypePlugins ?? []),
       ...(options.rehypePlugins ?? []),
     ];
+
+    // Maybe we'll want to introduce default recma plugins later?
+    // For example https://github.com/domdomegg/recma-mdx-displayname ?
+    const recmaPlugins = [...(options.recmaPlugins ?? [])];
 
     if (format === 'md') {
       // This is what permits to embed HTML elements with format 'md'
@@ -165,6 +178,7 @@ async function createProcessorFactory() {
       ...options,
       remarkPlugins,
       rehypePlugins,
+      recmaPlugins,
       providerImportSource: '@mdx-js/react',
     };
 
