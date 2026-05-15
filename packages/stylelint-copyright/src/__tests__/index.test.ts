@@ -27,7 +27,6 @@ type TestCase = {
 };
 
 function getOutputCss(output: stylelint.LinterResult) {
-  // eslint-disable-next-line no-underscore-dangle
   const result = output.results[0]!._postcssResult!;
   return result.root.toString(result.opts!.syntax);
 }
@@ -71,15 +70,15 @@ function testStylelintRule(config: stylelint.Config, tests: TestSuite) {
           expect(warnings.length).toBeGreaterThanOrEqual(1);
           expect(testCase.message).not.toBeNull();
           if (testCase.message != null) {
-            // eslint-disable-next-line @vitest/no-conditional-expect
+            // eslint-disable-next-line vitest/no-conditional-expect
             expect(warning.text).toBe(testCase.message);
           }
           if (testCase.line != null) {
-            // eslint-disable-next-line @vitest/no-conditional-expect
+            // eslint-disable-next-line vitest/no-conditional-expect
             expect(warning.line).toBe(testCase.line);
           }
           if (testCase.column != null) {
-            // eslint-disable-next-line @vitest/no-conditional-expect
+            // eslint-disable-next-line vitest/no-conditional-expect
             expect(warning.column).toBe(testCase.column);
           }
           if (!tests.fix) {
